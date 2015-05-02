@@ -1,0 +1,26 @@
+Outputs/
+Logs/
+History/
+__Previews/
+.DS_Store
+Thumbs.db
+*.LOG
+*.Dat
+*.htm
+*.html
+*.DsnWrk
+*.lnk
+*.*_loc
+library/database/*.xlsx
+library/database/.libuser
+Status\ Report.Txt
+library/database/~$*.*_loc
+library/database/~$discretes.DbLib_loc
+library/database/~$electrical.DbLib_loc
+library/database/~$electromechanical.DbLib_loc
+library/database/~$ic.DbLib_loc
+library/database/~$mechanical.DbLib_loc
+library/database/~$modules.DbLib_loc
+library/database/~$opto.DbLib_loc
+library/database/~$passives.DbLib_loc
+library/database/~$xtalosc.DbLib_loc
