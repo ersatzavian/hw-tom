@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=Project Outputs for planespotter
+OutputPath=
 LogFolderPath=
 
 [Preferences]
@@ -62,7 +62,7 @@ AnnotateOrder=-1
 DoLibraryUpdate=1
 DoDatabaseUpdate=1
 ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
+ClassGenCCAutoRoomEnabled=0
 ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
@@ -133,7 +133,7 @@ SaveSettingsToOutJob=-1
 GlobalBookmarks=0
 
 [Generic_EDE]
-OutputDir=Project Outputs for planespotter
+OutputDir=
 
 [OutputGroup1]
 Name=Netlist Outputs
