@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=
+OutputPath=Project Outputs for planespotter
 LogFolderPath=
 
 [Preferences]
@@ -53,6 +53,22 @@ GenerateClassCluster=0
 
 [Document2]
 DocumentPath=planespotter.SchDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+
+[Document3]
+DocumentPath=planespotter.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
 AnnotationIndexControlEnabled=0
@@ -93,7 +109,7 @@ AddNetPins=-1
 AddNetNetLabels=-1
 AddNetPorts=-1
 ShowComponentParameters=-1
-ExportBOM=-1
+ExportBOM=0
 TemplateFilename=..\imp-sharedlibs\templates\Electric-Imp-BOM-Internal.xlt
 TemplateStoreRelative=-1
 PCB_PrintColor=0
@@ -117,7 +133,7 @@ SaveSettingsToOutJob=-1
 GlobalBookmarks=0
 
 [Generic_EDE]
-OutputDir=
+OutputDir=Project Outputs for planespotter
 
 [OutputGroup1]
 Name=Netlist Outputs
