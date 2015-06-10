@@ -83,6 +83,10 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 
+[GeneratedDocument1]
+DocumentPath=Project Outputs for planespotter\Design Rule Check - planespotter.html
+DItemRevisionGUID=
+
 [SearchPath1]
 Path=..\..\library\*.*
 IncludeSubFolders=1
