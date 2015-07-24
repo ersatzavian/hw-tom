@@ -6,7 +6,7 @@ The RF front-end on planespotter is heavily based upon the [miniadsb](http://min
 
 Planespotter uses an STM32F030K6 MCU as the decoder. The STM32 family of microprocessors includes a very useful embedded bootloader, so the device can be reprogrammed over UART, elminating the need for an expensive in-system programmer. This design also includes an FT230X USB-to-Serial bridge, so the MCU can be reprogrammed right from a PC with just a binary image file. 
 
-![planespotter](/images/planespotter.jpg)
+![planespotter](images/planespotter.jpg)
 
 ## Programming
 To write a new image to the onboard flash on the STM32F030K6:
