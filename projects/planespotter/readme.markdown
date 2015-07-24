@@ -23,6 +23,9 @@ To write a new image to the onboard flash on the STM32F030K6:
 ## Software
 Software for this project will be posted here as it is developed. This is currently at the "hello world" / "how do I toolchain" stage, and will be updated shortly. 
 
+## Design Files
+For the actual files used to produce fabricated boards, see the releases folder. Every release will include a schematic PDF, Bill of Materials (BOM), and set of Gerber files used to fab the PCB. 
+
 ## ECOs
 ### Rev 1.0
 | Problem | Fix | Notes |
