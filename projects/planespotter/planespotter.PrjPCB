@@ -28,7 +28,7 @@ PowerPortNamesTakePriority=0
 PushECOToAnnotationFile=1
 DItemRevisionGUID=
 ReportSuppressedErrorsInMessages=0
-OutputPath=Project Outputs for planespotter
+OutputPath=
 LogFolderPath=
 
 [Preferences]
@@ -205,7 +205,7 @@ SaveSettingsToOutJob=-1
 GlobalBookmarks=0
 
 [Generic_EDE]
-OutputDir=Project Outputs for planespotter
+OutputDir=
 
 [OutputGroup1]
 Name=Netlist Outputs

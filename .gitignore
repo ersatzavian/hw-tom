@@ -2,7 +2,7 @@ Outputs/
 Logs/
 History/
 __Previews/
-.DS_Store
+*.DS_Store
 Thumbs.db
 *.LOG
 *.Dat
