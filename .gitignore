@@ -11,6 +11,12 @@ Thumbs.db
 *.DsnWrk
 *.lnk
 *.*_loc
+*.bin
+*.o
+*.d
+*.crf
+*.sct
+*.axf
 library/database/*.xlsx
 library/database/.libuser
 Status\ Report.Txt
