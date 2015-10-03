@@ -361,12 +361,12 @@ ARM Macro Assembler    Page 6
               00000000 
 Command Line: --debug --xref --diag_suppress=9931 --cpu=Cortex-M0 --apcs=interw
 ork --depend="planespotter-helloworld configuration\startup_stm32f030x6.d" -o"p
-lanespotter-helloworld configuration\startup_stm32f030x6.o" -IZ:\stm32_dev\boar
-dsupport_planespotter\planespotter-helloworld\MDK-ARM\RTE -IC:\Keil_v5\ARM\PACK
-\Keil\STM32F0xx_DFP\1.4.0\Device\Include -IC:\Keil_v5\ARM\CMSIS\Include --prede
-fine="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_VER
-SION SETA 515" --predefine="STM32F030 SETA 1" --list=startup_stm32f030x6.lst ..
-\Drivers\CMSIS\Device\ST\STM32F0xx\Source\Templates\arm\startup_stm32f030x6.s
+lanespotter-helloworld configuration\startup_stm32f030x6.o" -IW:\hw-tom\project
+s\planespotter\software\planespotter-helloworld\MDK-ARM\RTE -IC:\Keil_v5\ARM\PA
+CK\Keil\STM32F0xx_DFP\1.4.0\Device\Include -IC:\Keil_v5\ARM\CMSIS\Include --pre
+define="__EVAL SETA 1" --predefine="__MICROLIB SETA 1" --predefine="__UVISION_V
+ERSION SETA 515" --predefine="STM32F030 SETA 1" --list=startup_stm32f030x6.lst 
+..\Drivers\CMSIS\Device\ST\STM32F0xx\Source\Templates\arm\startup_stm32f030x6.s
 
 
 

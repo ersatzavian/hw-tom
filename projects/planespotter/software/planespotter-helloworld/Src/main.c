@@ -1,35 +1,3 @@
-/**
-  ******************************************************************************
-  * File Name          : main.c
-  * Description        : Main program body
-  ******************************************************************************
-  *
-  * COPYRIGHT(c) 2015 STMicroelectronics
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
 
@@ -40,8 +8,24 @@ UART_HandleTypeDef huart1;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
-/* Private function prototypes -----------------------------------------------*/
+static void setLed(char, char);
+static void toggleLed(char);
 
+void setLed(char _led, char _state) {
+	char state = GPIO_PIN_RESET;
+	char led = GPIO_PIN_5;
+	if (_state == 0) { state = GPIO_PIN_SET; }
+	if (_led == 2) { led = GPIO_PIN_6; }
+	if (_led == 3) { led = GPIO_PIN_7; }
+	HAL_GPIO_WritePin(GPIOB, led, state);
+}
+
+void toggleLed(char _led) {
+	char led = GPIO_PIN_5;
+	if (_led == 2) { led = GPIO_PIN_6; }
+	if (_led == 3) { led = GPIO_PIN_7; }
+	HAL_GPIO_TogglePin(GPIOB, led);
+}
 
 int main(void) {
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
@@ -55,17 +39,9 @@ int main(void) {
   MX_USART1_UART_Init();
 	
 	// set GPIO initial states
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
-	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_7, GPIO_PIN_RESET);
-
-  while (1)
-  {
-		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_5);
-		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_6);
-		HAL_GPIO_TogglePin(GPIOB, GPIO_PIN_7);
-		HAL_Delay(500);
-  }
+	setLed(1, 1); // OK; running
+	setLed(2, 0); // Mirror Input state
+	setLed(3, 0); // Packet Decoded, sending
 }
 
 /** System Clock Configuration */
