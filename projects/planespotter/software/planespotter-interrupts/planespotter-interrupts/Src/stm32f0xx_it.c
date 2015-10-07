@@ -35,7 +35,7 @@ void EXTI2_3_IRQHandler(void) {
   /* USER CODE END EXTI2_3_IRQn 0 */
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_3);
   /* USER CODE BEGIN EXTI2_3_IRQn 1 */
-	setLed(2, readDecoder);
+	setLed(2, readDecoder());
 }
 
 /**
@@ -48,5 +48,5 @@ void EXTI4_15_IRQHandler(void) {
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_7);
   HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
   /* USER CODE BEGIN EXTI4_15_IRQn 1 */
-	setLed(3, (readBtn(1) | readBtn(2) | readBtn(3)) );
+	toggleLed(3);
 }
