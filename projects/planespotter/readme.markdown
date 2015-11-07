@@ -21,7 +21,11 @@ To write a new image to the onboard flash on the STM32F030K6:
 7. Program! Your image should begin running immediately. 
 
 ## Software
-Software for this project will be posted here as it is developed. This is currently at the "hello world" / "how do I toolchain" stage, and will be updated shortly. 
+Software for this project will be posted here as it is developed. This project doesn't have working ADS-B detector software yet as I'm still learning how to use the peripherals I need. Buttons, LEDS, Interrupts, and UART functionality are all up and running. 
+
+I will likely post multiple project directories for software versions until there is one working build of Planespotter software; right now there's just the "helloworld" project directory. To pick up where I'm at, start with the Keil µVision project at `planespotter-helloworld/MDK-ARM/planespotter-helloworld.uvprojx`. 
+
+To get a hex file to program onto the board, make sure "Create HEX File" is checked in the Target Options, under the "Output" tab. Name the executable however you'd like under "Name of Executable" while you're there. A Hex file will be deposited at (for example) `planespotter-helloworld/MDK-ARM/planespotter-helloworld Configuration/[name of executable].hex`
 
 ## Design Files
 For the actual files used to produce fabricated boards, see the releases folder. Every release will include a schematic PDF, Bill of Materials (BOM), and set of Gerber files used to fab the PCB. 
