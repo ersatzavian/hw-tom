@@ -67,7 +67,33 @@ void SysTick_Handler(void)
 /* please refer to the startup file (startup_stm32f0xx.s).                    */
 /******************************************************************************/
 
-/* USER CODE BEGIN 1 */
+/**
+* @brief This function handles EXTI line 4 to 15 interrupts.
+*/
+void EXTI4_15_IRQHandler(void)
+{
+	uint16_t button1State = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_6);
+	uint16_t button2State = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_7);
+	uint16_t button3State = HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_8);
+	
+  /* USER CODE BEGIN EXTI4_15_IRQn 0 */
+	if (!button1State || !button2State || !button3State) {
+		// Button Pressed; turn on LED
+		printf("Button Pressed!\n");
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_RESET);
+	} else {
+ 		// all buttons released; turn off LED
+		printf("All Buttons Released!\n");
+		HAL_GPIO_WritePin(GPIOB, GPIO_PIN_6, GPIO_PIN_SET);
+	}
 
-/* USER CODE END 1 */
+  /* USER CODE END EXTI4_15_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_6);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_7);
+  HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_8);
+  /* USER CODE BEGIN EXTI4_15_IRQn 1 */
+
+  /* USER CODE END EXTI4_15_IRQn 1 */
+}
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

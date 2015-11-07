@@ -1,19 +1,84 @@
+/**
+  ******************************************************************************
+  * File Name          : main.c
+  * Description        : Main program body
+  ******************************************************************************
+  *
+  * COPYRIGHT(c) 2015 STMicroelectronics
+  *
+  * Redistribution and use in source and binary forms, with or without modification,
+  * are permitted provided that the following conditions are met:
+  *   1. Redistributions of source code must retain the above copyright notice,
+  *      this list of conditions and the following disclaimer.
+  *   2. Redistributions in binary form must reproduce the above copyright notice,
+  *      this list of conditions and the following disclaimer in the documentation
+  *      and/or other materials provided with the distribution.
+  *   3. Neither the name of STMicroelectronics nor the names of its contributors
+  *      may be used to endorse or promote products derived from this software
+  *      without specific prior written permission.
+  *
+  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  *
+  ******************************************************************************
+  */
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
+#include <stdio.h>
+
+/* USER CODE BEGIN Includes */
+
+/* USER CODE END Includes */
 
 /* Private variables ---------------------------------------------------------*/
 UART_HandleTypeDef huart1;
+
+/* USER CODE BEGIN PV */
+/* Private variables ---------------------------------------------------------*/
+
+/* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_USART1_UART_Init(void);
-static void setLed(char, char);
+static void setLed(uint16_t, char);
 static void toggleLed(char);
 
-void setLed(char _led, char _state) {
-	char state = GPIO_PIN_RESET;
-	char led = GPIO_PIN_5;
+#ifdef __GNUC__
+  /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+     set to 'Yes') calls __io_putchar() */
+  #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+  #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif /* __GNUC__ */
+ 
+/**
+  * @brief  Retargets the C library printf function to the USART.
+  * @param  None
+  * @retval None
+  */
+PUTCHAR_PROTOTYPE
+{
+	/* Place your implementation of fputc here */
+	/* e.g. write a character to the USART */
+	HAL_UART_Transmit(&huart1, (uint8_t *)&ch, 1, 100);
+
+	return ch;
+}
+/* USER CODE END PFP */
+
+void setLed(uint16_t _led, char _state) {
+	GPIO_PinState state = GPIO_PIN_RESET;
+	uint16_t led = GPIO_PIN_5;
 	if (_state == 0) { state = GPIO_PIN_SET; }
 	if (_led == 2) { led = GPIO_PIN_6; }
 	if (_led == 3) { led = GPIO_PIN_7; }
@@ -21,13 +86,16 @@ void setLed(char _led, char _state) {
 }
 
 void toggleLed(char _led) {
-	char led = GPIO_PIN_5;
+	uint16_t led = GPIO_PIN_5;
 	if (_led == 2) { led = GPIO_PIN_6; }
 	if (_led == 3) { led = GPIO_PIN_7; }
 	HAL_GPIO_TogglePin(GPIOB, led);
 }
 
-int main(void) {
+int main(void)
+{
+  /* MCU Configuration----------------------------------------------------------*/
+
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
@@ -37,15 +105,26 @@ int main(void) {
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART1_UART_Init();
-	
+
 	// set GPIO initial states
 	setLed(1, 1); // OK; running
-	setLed(2, 0); // Mirror Input state
-	setLed(3, 0); // Packet Decoded, sending
+	setLed(2, 0); // Set high if any button is pressed
+	setLed(3, 0); // Set high if packet is received
+	
+	printf("Planespotter V1 Ready\n");
+	
+	while(1) {
+		toggleLed(1);
+		HAL_Delay(500); // milliseconds 
+	}
+
 }
 
-/** System Clock Configuration */
-void SystemClock_Config(void) {
+/** System Clock Configuration
+*/
+void SystemClock_Config(void)
+{
+
   RCC_OscInitTypeDef RCC_OscInitStruct;
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
   RCC_PeriphCLKInitTypeDef PeriphClkInit;
@@ -114,7 +193,7 @@ void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : PA6 PA7 PA8 */
   GPIO_InitStruct.Pin = GPIO_PIN_6|GPIO_PIN_7|GPIO_PIN_8;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING_FALLING;
   GPIO_InitStruct.Pull = GPIO_PULLUP;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
@@ -124,7 +203,16 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI4_15_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI4_15_IRQn);
+
 }
+
+/* USER CODE BEGIN 4 */
+
+/* USER CODE END 4 */
 
 #ifdef USE_FULL_ASSERT
 
