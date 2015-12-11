@@ -36,11 +36,15 @@ To write a new image to the onboard flash on the STM32F030K6:
 8. When programming has finished, tap the Reset button (S20). 
 
 ## Software
-Software for this project will be posted here as it is developed. This project doesn't have working ADS-B detector software yet as I'm still learning how to use the peripherals I need. Buttons, LEDS, Interrupts, and UART functionality are all up and running. 
+Software for this project will be posted here as it is developed. This project doesn't have working ADS-B detector software yet as I wasn't able to located a signal with any of the crappy antennas I already have and I'm trying to get my hands on a signal generator to prove out the detector.
 
-I will likely post multiple project directories for software versions until there is one working build of Planespotter software; right now there's just the "helloworld" project directory. To pick up where I'm at, start with the Keil µVision project at `planespotter-helloworld/MDK-ARM/planespotter-helloworld.uvprojx`. 
+After much messing around with Keil and STM32Cube, I determined that my life will be too short to spend it making obtuse directory structures for a simple project, and yours is probably too short to spend it parsing said crap. So everything here now based on the [mbed platform](https://www.mbed.com/en/).
 
-To get a hex file to program onto the board, make sure "Create HEX File" is checked in the Target Options, under the "Output" tab. Name the executable however you'd like under "Name of Executable" while you're there. A Hex file will be deposited at (for example) `planespotter-helloworld/MDK-ARM/planespotter-helloworld Configuration/[name of executable].hex`
+To use the mbed online compiler, go to [https://developer.mbed.org/compiler](https://developer.mbed.org/compiler).
+
+Planespotter software is built using the [NUCLEO-F031K6 target](https://developer.mbed.org/platforms/ST-Nucleo-F031K6/) in the mbed compiler, which is effectively just a breakout board for the STM32F031. This is close enough to write software for Planespotter.
+
+Source files from the mbed compiler will be posted here. To import the full mbed project, use the mbed compiler and pick up the project from its [Mercurial Repository](https://developer.mbed.org/users/tombrew/code/planespotter_adc_logger/).
 
 ## Design Files
 For the actual files used to produce fabricated boards, see the releases folder. Every release will include a schematic PDF, Bill of Materials (BOM), and set of Gerber files used to fab the PCB. 
