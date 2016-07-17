@@ -7,32 +7,32 @@ Serial uart(PA_9, PA_10);
 
 void btn1PressCb()
 {
-    uart.printf("Button 1 Pressed\n");
+    uart.printf("Button 1 Pressed\r\n");
 }
 
 void btn1RelCb()
 {
-    uart.printf("Button 1 Released\n");
+    uart.printf("Button 1 Released\r\n");
 }
 
 void btn2PressCb()
 {
-    uart.printf("Button 2 Pressed\n");
+    uart.printf("Button 2 Pressed\r\n");
 }
 
 void btn2RelCb() 
 {
-    uart.printf("Button 2 Released\n");
+    uart.printf("Button 2 Released\r\n");
 }
 
 void btn3PressCb()
 {
-    uart.printf("Button 3 Pressed\n");
+    uart.printf("Button 3 Pressed\r\n");
 }
 
 void btn3RelCb() 
 {
-    uart.printf("Button 3 Released\n");
+    uart.printf("Button 3 Released\r\n");
 }
 
 void uartCb() 
@@ -66,6 +66,6 @@ int main()
         led1 = 1; // LED is OFF
         wait(0.8); // 800 ms off
         
-        uart.printf("detector/average: %2.2f / %2.2f\n", detector.read() * 3.3, average.read() * 3.3);
+        uart.printf("detector/average: %2.2f / %2.2f\r\n", detector.read() * 3.3, average.read() * 3.3);
     }
 }

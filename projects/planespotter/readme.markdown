@@ -13,16 +13,17 @@ To write a new image to the onboard flash on the STM32F030K6:
 
 1. You may need to install [FTDI's Virtual Com Port Driver](http://www.ftdichip.com/Drivers/VCP.htm) if you're not on OS X. 
 2. Download and install Python, required for [stm32loader](https://github.com/jsnyder/stm32loader).
-3. Plug planespotter into your PC over USB. If you're using a VM, make sure to share the FTDI USB-to-Serial Device with the VM from the host machine. 
-4. Find the device name for the usb-serial adapter on your planespotter:
+3. Download and install [pyserial](https://github.com/pyserial/pyserial), also required for stm32loader. If you have [pip](https://pip.readthedocs.io/en/stable/installing/), you can just `pip install pyserial`.
+4. Plug planespotter into your PC over USB. If you're using a VM, make sure to share the FTDI USB-to-Serial Device with the VM from the host machine. 
+5. Find the device name for the usb-serial adapter on your planespotter:
 
     ```
     $ ls /dev/tty.usbserial*
     /dev/tty.usbserial-DB00KYMI
     ```
-5. Place the STM32 in Device Firmware Upgrade (DFU) Mode by holding S50 (BOOT0), tapping S20 (RESET_L), and releasing S50.
-6. Make sure planespotter and the binary you are flashing are in the same directory (they are, if you're using a binary provided at planespotter/software/).
-7. Use stm32loader to load the binary onto Planespotter:
+6. Place the STM32 in Device Firmware Upgrade (DFU) Mode by holding S50 (BOOT0), tapping S20 (RESET_L), and releasing S50.
+7. Make sure planespotter and the binary you are flashing are in the same directory (they are, if you're using a binary provided at planespotter/software/).
+8. Use stm32loader to load the binary onto Planespotter:
 
     ```
     $ ./stm32loader.py -e -w -v -p /dev/tty.usbserial-DB00KYMI -b 57600 <image_name>
@@ -33,7 +34,12 @@ To write a new image to the onboard flash on the STM32F030K6:
     Reading: 100%, Time: 0:00:07 |################################################|
     Verification OK
     ```
-8. When programming has finished, tap the Reset button (S20). 
+9. When programming has finished, tap the Reset button (S20). 
+10. Planespotter will talk over the same serial port you just used to program it as soon as it comes out of reset. Baud is 115200, no flow control. Fire up your favorite terminal emulator or use screen:
+
+    ```
+    screen dev/tty.usbserial-DB00KYMI 115200
+    ```
 
 ## Software
 Software for this project will be posted here as it is developed. This project doesn't have working ADS-B detector software yet as I wasn't able to located a signal with any of the crappy antennas I already have and I'm trying to get my hands on a signal generator to prove out the detector.
