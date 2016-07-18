@@ -62,6 +62,13 @@ For the actual files used to produce fabricated boards, see the releases folder.
 | Allow onboard FTDI to toggle BOOT0 for easier target programming | | |
 | Add labels to S20 and S50, J50 | | |
 
+## Breadcrumbs
+(I go long periods of time without messing with this thing).
+ * Button state change callbacks aren't logging messages.
+ * Blinking lights and logging the detector output voltage, but haven't proved out the RF front end.
+ * Need a 1090 MHz source to test the RF front-end.
+ * R100 and R101 need to be removed. Not 100% on why I put those there. 
+
 ## License
 
 All material in this repository (unless otherwise specificed in the file) is licensed under the MIT License.
