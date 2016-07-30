@@ -61,13 +61,16 @@ For the actual files used to produce fabricated boards, see the releases folder.
 | ------- | --- | ----- |
 | Allow onboard FTDI to toggle BOOT0 for easier target programming | | |
 | Add labels to S20 and S50, J50 | | |
+| Mark optional matching network more clearly and mark 0Ω resistors as "DNP" | | |
+| Upsize micro to a standard mbed target that supports mbed-RTOS | | |
 
 ## Breadcrumbs
 (I go long periods of time without messing with this thing).
- * Button state change callbacks aren't logging messages.
  * Blinking lights and logging the detector output voltage, but haven't proved out the RF front end.
- * Need a 1090 MHz source to test the RF front-end.
- * R100 and R101 need to be removed. Not 100% on why I put those there. 
+ * Would really like a 1090 MHz source to test the RF front-end.
+ * Implement fixed-frequency sampling instead of just running flat-out. mbed-rtos is too big for the STM32F0; need to find something smaller.
+ * Could possibly implement an RSSI-like measurement based on detector signal swing relative to average.
+
 
 ## License
 
