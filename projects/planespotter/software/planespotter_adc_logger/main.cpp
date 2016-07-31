@@ -1,17 +1,16 @@
 #include "mbed.h"
 
-#define DEBUG 1
-#define SAMPLERATE_MHZ 0.000001
+#define DEBUG 0
+#define SAMPLERATE_MHZ 0.1
 
 DigitalOut led1(PB_5), led2(PB_6), led3(PB_7);
 InterruptIn btn1(PA_6), btn2(PA_7), btn3(PA_8);
-AnalogIn detector(PA_3), average(PA_4);
+DigitalIn detector(PA_3);
 Serial uart(PA_9, PA_10);
 
 Ticker sampleTimer;
+char det = 0;
 int word = 0, bit = 32;
-float det = 0, avg = 0;
-bool lastSampleWasLow = true;
 
 void btn1PressCb()
 {
@@ -51,27 +50,8 @@ void uartCb()
 
 void sample() {
     det = detector.read();
-    avg = average.read();
-    if ((det > avg) && lastSampleWasLow) {
-        led1 = 0; // LED is ON (active-low)
-#if DEBUG==1
-        uart.printf("(1) detector/average: %2.5f / %2.5f \r\n", det * 3.3, avg * 3.3);
-#endif
-        word |= 1 << bit;
-        lastSampleWasLow = false;
-    } else {
-        led1 = 1; // LED is OFF
-#if DEBUG==1
-        uart.printf("(0) detector/average: %2.5f / %2.5f \r\n", det * 3.3, avg * 3.3);
-#endif  
-        lastSampleWasLow = true;
-    } 
-    bit--;
-    if (bit < 0) {
-        uart.printf("%08x ", word);
-        word = 0;
-        bit = 32;
-    }   
+    // blink real fast so I can check if this timer is actually running at 4 MHz.
+    led3 = 1 - led3;
 }
 
 int main()

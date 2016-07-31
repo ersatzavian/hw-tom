@@ -41,16 +41,17 @@ To write a new image to the onboard flash on the STM32F030K6:
     screen dev/tty.usbserial-DB00KYMI 115200
     ```
 
-## Software
-Software for this project will be posted here as it is developed. This project doesn't have working ADS-B detector software yet as I wasn't able to located a signal with any of the crappy antennas I already have and I'm trying to get my hands on a signal generator to prove out the detector.
+## Firmware
 
-After much messing around with Keil and STM32Cube, I determined that my life will be too short to spend it making obtuse directory structures for a simple project, and yours is probably too short to spend it parsing said crap. So everything here now based on the [mbed platform](https://www.mbed.com/en/).
+Firmware for this project will be posted here as it is developed. This project doesn't have working ADS-B detector software yet as I wasn't able to located a signal with any of the crappy antennas I already have and I'm trying to get my hands on a signal generator to prove out the detector.
 
-To use the mbed online compiler, go to [https://developer.mbed.org/compiler](https://developer.mbed.org/compiler).
+Firmware is probably going to have to be in assembly in order to provide the speed required to decode the 1 Mbps PPM ADS-B signal from the (missing) hardware comparator.
 
-Planespotter software is built using the [NUCLEO-F031K6 target](https://developer.mbed.org/platforms/ST-Nucleo-F031K6/) in the mbed compiler, which is effectively just a breakout board for the STM32F031. This is close enough to write software for Planespotter.
+Prior to discovering assembly was likely a requirement, but after much messing around with Keil and STM32Cube, I did initial bringup and some tests with the [mbed platform](https://www.mbed.com/en/). This is a really handy way to work with this processor if you're not trying to shoehorn something into it like I now am. 
 
-Source files from the mbed compiler will be posted here. To import the full mbed project, use the mbed compiler and pick up the project from its [Mercurial Repository](https://developer.mbed.org/users/tombrew/code/planespotter_adc_logger/).
+To use the mbed online compiler, go to [https://developer.mbed.org/compiler](https://developer.mbed.org/compiler). Planespotter bringup firmware was built using the [NUCLEO-F031K6 target](https://developer.mbed.org/platforms/ST-Nucleo-F031K6/) in the mbed compiler, which is effectively just a breakout board for the STM32F031. This is close enough to write software for Planespotter.
+
+To grab the full mbed project I was using for bringup, use the mbed compiler and pick up the project from its [Mercurial Repository](https://developer.mbed.org/users/tombrew/code/planespotter_adc_logger/).
 
 ## Design Files
 For the actual files used to produce fabricated boards, see the releases folder. Every release will include a schematic PDF, Bill of Materials (BOM), and set of Gerber files used to fab the PCB. 
@@ -62,15 +63,14 @@ For the actual files used to produce fabricated boards, see the releases folder.
 | Allow onboard FTDI to toggle BOOT0 for easier target programming | | |
 | Add labels to S20 and S50, J50 | | |
 | Mark optional matching network more clearly and mark 0Ω resistors as "DNP" | | |
-| Upsize micro to a standard mbed target that supports mbed-RTOS | | |
+| Analog sampling isn't fast enough for 1 Mbps PPM ADS-B | Add external hardware comparator to generate a logic-level PPM signal, or switch to a micro with a built-in comparator | |
 
 ## Breadcrumbs
 (I go long periods of time without messing with this thing).
- * Blinking lights and logging the detector output voltage, but haven't proved out the RF front end.
- * Would really like a 1090 MHz source to test the RF front-end.
- * Implement fixed-frequency sampling instead of just running flat-out. mbed-rtos is too big for the STM32F0; need to find something smaller.
- * Could possibly implement an RSSI-like measurement based on detector signal swing relative to average.
-
+ * Write assembly to toggle a GPIO at 4 MHz.
+ * Prove the RF front end works. Get an oscilloscope and a 1090 MHz source. * Figure out if you have a built-in comparator by happy accident or hack one on there. The comparator is a hard requirement; the analog inputs aren't even close to fast enough. ADS-B data is 1 Mbps PPM data; we need to run 4M comparisons per second to decode it.
+ * Might be able to crib from the PIC ADS-B decoder assembly to structure the STM32 decoder.
+ * Even with a hardware comparator, we're going to have to get closer to the metal to actually decode the PPM signal. Tests with mbed Ticker locked the processor up when run faster than 100 kHz.
 
 ## License
 
