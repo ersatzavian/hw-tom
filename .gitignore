@@ -17,6 +17,7 @@ Thumbs.db
 *.crf
 *.sct
 *.axf
+*.elf
 library/database/*.xlsx
 library/database/.libuser
 Status\ Report.Txt
