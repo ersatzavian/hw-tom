@@ -67,10 +67,11 @@ For the actual files used to produce fabricated boards, see the releases folder.
 
 ## Breadcrumbs
 (I go long periods of time without messing with this thing).
- * Write assembly to toggle a GPIO at 4 MHz.
- * Prove the RF front end works. Get an oscilloscope and a 1090 MHz source. * Figure out if you have a built-in comparator by happy accident or hack one on there. The comparator is a hard requirement; the analog inputs aren't even close to fast enough. ADS-B data is 1 Mbps PPM data; we need to run 4M comparisons per second to decode it.
- * Might be able to crib from the PIC ADS-B decoder assembly to structure the STM32 decoder.
- * Even with a hardware comparator, we're going to have to get closer to the metal to actually decode the PPM signal. Tests with mbed Ticker locked the processor up when run faster than 100 kHz.
+ * The RF Front-End works! Proved out with a Telemakus TEG4000-1 signal generator and some attenuators on 4/2/18.
+ * Added a comparator and it works too! Verified 4/2/18. Notes and schematic snippet:
+ ![notes_0402](images/notes_20180402.JPG)
+ * Added a TinyFPGA A1 to my Rev01 prototype as an option for ADS-B decoding; could just send UART info to the STM. Although at that point there's not much point in not just sending it to the USB Host to be plotted or posted to an online service - if the FPGA decoder works out, probably want to switch to an imp for a standalone receiver.  
+ ** Tests with mbed Ticker locked the processor up when run faster than 100 kHz.
 
 ## License
 
